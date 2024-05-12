@@ -1,0 +1,52 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+      <form class="d-flex w-75 " role="search">
+        <span class='bg-white ps-3 pe-1 pt-1 rounded-start-5'><i class="fa fa-search"></i></span>
+        <input class="form-control me-2 border-0 rounded-start-0 rounded-end-4" type="search" placeholder="Search"
+          aria-label="Search" />
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            {{userData.userName}}
+          </a>
+          <ul class="dropdown-menu " aria-labelledby="navbarDropdown">
+            <li class="cp">
+              <a class="dropdown-item ">
+                <span class="me-3 main-color">{{userData.userName}}</span>
+                <img src="https://upskilling-egypt.com:3006/{{userData.imagePath}}" class=" rounded rounded-5 userIMG"
+                  alt="no Img">
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li class="cp">
+              <a class="dropdown-item" (click)="openDialog()">
+                <i class="fa-solid fa-lock-open me-2"></i>
+                <span>change password</span>
+              </a>
+            </li>
+            <hr class="dropdown-divider ">
+
+            <li class="cp">
+              <a class="dropdown-item" (click)="logout()">
+                <i class="fa-solid fa-arrow-right-from-bracket me-2"></i>
+                <span>log out</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

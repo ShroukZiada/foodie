@@ -1,0 +1,44 @@
+.page-title {
+ background-image: url(../../../assets/images/header2.png);
+ background-repeat: no-repeat;
+ border-radius: 25px;
+ background-size: cover;
+ width: 100%;
+
+ .userMsM {
+  font-size: 2rem;
+  font-weight: 500;
+  font-family: Roboto;
+
+  .userName {
+   font-size: 1.5rem;
+   font-weight: 500;
+   color: #DFE0E0;
+  }
+
+ }
+
+ .userTitle {
+  font-family: Roboto;
+  font-size: 1rem;
+  font-weight: 400;
+ }
+}
+
+.page-home {
+ background: #F0FFEF;
+ width: 97%;
+ border-radius: 18px;
+
+ .home-span {
+  color: #4AA35A;
+
+ }
+
+ .lowerTxt {
+  color: #1F263E;
+
+ }
+
+
+}

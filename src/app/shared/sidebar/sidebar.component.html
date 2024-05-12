@@ -1,0 +1,19 @@
+<section class="bg-dark-main vh-100 px-0">
+ <div class="">
+  <img src="../../../assets/images/3.svg" class="w-75" alt="">
+ </div>
+ <div class="mt-3">
+  <ul class="px-0 ">
+   <ng-container *ngFor="let sideitmes of menu">
+    <li *ngIf="sideitmes.isActive" class="list-unstyled">
+     <a [routerLink]="sideitmes.link" class="sideItems d-block " routerLinkActive="active-ul">
+      <span>
+       <i [class]="sideitmes.icon"></i>
+      </span>
+      <span class="text-capitalize">{{sideitmes.text}}</span>
+     </a>
+    </li>
+   </ng-container>
+  </ul>
+ </div>
+</section>

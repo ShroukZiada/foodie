@@ -1,0 +1,68 @@
+<section class="auth">
+     <div class="container">
+          <div class="row vh-100 justify-content-center align-items-center">
+               <div class="col-md-10">
+                    <div class="auth-card ">
+                         <div class="w-50 m-auto">
+                              <img src="../../assets/images/logo.svg" class="w-75" alt="" />
+                         </div>
+                         <h1>login</h1>
+                         <p>Welcome Back! Please enter your details</p>
+                         <form [formGroup]="authForm" (ngSubmit)="submitAuthForm(authForm)">
+
+                              <div class="input-group mb-3">
+                                   <span class="input-group-text" id="basic-addon1"><i
+                                             class="fa-regular fa-envelope"></i></span>
+                                   <input formControlName="email" type="email" class="form-control"
+                                        placeholder="enter your email" aria-label="Username"
+                                        aria-describedby="basic-addon1" />
+                              </div>
+                              <div class="" *ngIf="  authForm.get('email')?.touched">
+                                   <p class=" text-success" *ngIf="authForm.get('email')?.errors == null"> <i
+                                             class="fa-solid fa-check me-2 text-success"></i> Email Is Valid</p>
+                                   <p class=" text-danger"
+                                        *ngIf="authForm.get('email')?.errors !== null && authForm.get('email')?.errors?.['pattern']">
+                                        <i class="fa-solid fa-triangle-exclamation me-2 text-danger"></i>Enter Valid
+                                        Email
+                                   </p>
+                                   <p class="text-danger"
+                                        *ngIf="authForm.get('email')?.errors !== null && authForm.get('email')?.errors?.['required']">
+                                        <i class="fa-solid fa-triangle-exclamation me-2 text-danger"></i>Email is
+                                        required
+                                   </p>
+                              </div>
+                              <div class="input-group mb-3">
+                                   <span class="input-group-text" id="basic-addon1"><i
+                                             class="fa-solid fa-lock"></i></span>
+                                   <input formControlName="password" [type]="hide? 'password':'text'"
+                                        class="form-control" placeholder="password" aria-label="password"
+                                        aria-describedby="basic-addon1" />
+                                   <span class="position-absolute icon" (click)="hide =!hide"><i class="fa fa-solid"
+                                             [class]="hide?'fa-eye-slash': 'fa-eye'"></i></span>
+                              </div>
+                              <div class="" *ngIf="  authForm.get('password')?.touched">
+                                   <p class=" text-success" *ngIf="authForm.get('password')?.errors == null"><i
+                                             class="fa-solid fa-check me-2 text-success"></i> password Is Valid</p>
+                                   <p class=" text-danger"
+                                        *ngIf="authForm.get('password')?.errors !== null && authForm.get('password')?.errors?.['pattern'] && authForm.get('password')?.value !== localPss">
+                                        <i class="fa-solid fa-triangle-exclamation me-2 text-danger"></i>Enter Valid
+                                        Password
+                                   </p>
+                                   <p class="text-danger"
+                                        *ngIf="authForm.get('password')?.errors !== null && authForm.get('password')?.errors?.['required']">
+                                        <i class="fa-solid fa-triangle-exclamation me-2 text-danger"></i>password is
+                                        required
+                                   </p>
+                              </div>
+                              <div class="links ">
+                                   <a routerLink="/register" class="text-dark-gray">register now?</a>
+                                   <a routerLink="reset" class="text-color">forget pasword</a>
+                              </div>
+                              <button [disabled]="authForm.invalid" type="submit" class="primary w-100 mt-4 ">
+                                   log in</button>
+                         </form>
+                    </div>
+               </div>
+          </div>
+     </div>
+</section>

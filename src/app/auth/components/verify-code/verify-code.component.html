@@ -1,0 +1,46 @@
+<!-- verification Code -->
+<div class="p-5">
+ <form [formGroup]="verifyForm" (ngSubmit)="onVerify(verifyForm)">
+  <div class="row">
+   <div class="col-md-12">
+    <div class="contentBox">
+     <div class="input-group mb-3">
+      <span class="input-group-text" id="basic-addon1">
+       <i class="fa-solid fa-envelope"></i>
+      </span>
+      <input type="text" class="form-control" placeholder="Enter your E-mail" formControlName="email" [ngClass]="{ 'is-invalid': verifyForm.get('email')?.touched && verifyForm.get('email')?.invalid,
+          'is-valid': verifyForm.get('email')?.touched && verifyForm.get('email')?.valid}">
+     </div>
+     <p class="alert alert-danger py-1"
+      *ngIf="verifyForm.get('email')?.touched && verifyForm.get('email')?.getError('required')">
+      E-Mail is required
+     </p>
+     <p class="alert alert-danger py-1"
+      *ngIf="verifyForm.get('email')?.touched && verifyForm.get('email')?.getError('email')">
+      E-Mail is Invalid
+     </p>
+    </div>
+   </div>
+
+   <div class="col-md-12">
+    <div class="contentBox">
+     <div class="input-group mb-3">
+      <span class="input-group-text" id="basic-addon1">
+       <i class="fa-solid fa-key"></i>
+      </span>
+      <input type="text" class="form-control" placeholder="Code" formControlName="code" [ngClass]="{ 'is-invalid': verifyForm.get('otp')?.touched && verifyForm.get('otp')?.invalid,
+       'is-valid': verifyForm.get('otp')?.touched && verifyForm.get('otp')?.valid}">
+     </div>
+     <p class="alert alert-danger py-1"
+      *ngIf="verifyForm.get('otp')?.touched && verifyForm.get('otp')?.getError('required')">
+      Code is required
+     </p>
+     <p class="alert alert-danger py-1"
+      *ngIf="verifyForm.get('otp')?.touched && verifyForm.get('otp')?.getError('minLength') || verifyForm.get('code')?.getError('maxLength')">
+      Code MaxLength and MinLength is 4 </p>
+    </div>
+    <button class="px-3 py-1 primary">verify</button>
+   </div>
+  </div>
+ </form>
+</div>

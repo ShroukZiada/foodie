@@ -1,0 +1,116 @@
+<section class="text-capitalize ">
+  <div class="page-title px-5">
+    <div class="container">
+      <div class="row justify-content-between align-items-center px-0">
+        <div class="col-md-8">
+          <h1 class="userMsM text-white">recipe<span class="userName">item</span>
+          </h1>
+          <p class="userTitle text-white"> You can now add your items that any user can order it from
+            <br>the Application and you can edit
+          </p>
+        </div>
+        <div class="col-md-4 text-end">
+          <div class="">
+            <img src="../../../assets/images/Group 48102127.svg" class="w-75">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="">
+    <div class="d-flex justify-content-between align-items-center px-5 mt-5">
+      <h1 class="h4 H1Color">recipes <span class="spanTxt">Table Details</span></h1>
+      <button class="btn- primary w-25" routerLink="/dashboard/admin/recipes/add-edit-recipe">add recipes </button>
+    </div>
+    <p class="px-5">You can check all <span class="H1Color fw-bold">recipes</span> details</p>
+
+    <div>
+      <div class="container">
+        <div class="row justify-content-between justify-content-center p-5">
+          <div class="col-md-6">
+            <mat-form-field class="example-form-field" class="w-100" appearance="outline">
+              <mat-label>Search recipes</mat-label>
+              <input matInput type="text" [(ngModel)]="searchValue" (keyup.enter)="getAllRescipe()"
+                (click)="searchValue=''; getAllRescipe()">
+              <button *ngIf="searchValue" matSuffix mat-icon-button aria-label="Clear" (click)="searchValue=''">
+                <mat-icon>close</mat-icon>
+              </button>
+            </mat-form-field>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field appearance="outline">
+              <mat-label>Categories</mat-label>
+              <mat-select [(ngModel)]="catId" (selectionChange)="getAllRescipe()">
+                <mat-option value="0">All Gategories</mat-option>
+                <mat-option *ngFor="let category  of Gategories" [value]="category.id">{{category.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field appearance="outline">
+              <mat-label>Tag</mat-label>
+              <mat-select [(ngModel)]="tagId" (selectionChange)="getAllRescipe()">
+                <mat-option value="0">All Tags</mat-option>
+                <mat-option *ngFor="let tag of Tags" [value]="tag.id">{{tag.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+
+      <table class="table table-striped table-hover text-capitalize text-center mt-5 ">
+        <thead style="border: 1px solid rgba(16, 203, 66, 0.429); color: #4AA35A;">
+          <th>name</th>
+          <th>image</th>
+          <th>describtion</th>
+          <th>price</th>
+          <th>catogery</th>
+          <th>tag</th>
+          <th>creation date</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let recipeItem of listData?.data">
+            <td>{{recipeItem.name}}</td>
+            <td><img [src]="recipeItem.imagePath? imgUrl + recipeItem.imagePath : empImg" alt="" class=" tableImg">
+            </td>
+            <td>{{recipeItem?.description}}</td>
+            <td>{{recipeItem?.price |currency : 'EG'}}</td>
+            <td>{{recipeItem?.catogery}}</td>
+            <td>
+              <span *ngFor="let catogery of recipeItem.category">
+                {{recipeItem.name}},
+              </span>
+            </td>
+            <td>{{recipeItem?.creationDate | date:'dd-MM-yy hh:mm a'}}</td>
+            <td>
+              <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu" class="text-capitalize">
+                <button mat-menu-item>
+                  <mat-icon>visibility</mat-icon>
+                  <span>view</span>
+                </button>
+                <button mat-menu-item>
+                  <mat-icon>edit</mat-icon>
+                  <span>edit</span>
+                </button>
+                <button mat-menu-item class="pointer-event" (click)="opendeleteDialog(recipeItem.id)">
+                  <mat-icon>delete</mat-icon>
+                  <span>delete</span>
+                </button>
+              </mat-menu>
+            </td>
+        </tbody>
+      </table>
+
+      <mat-paginator #paginator class="demo-paginator" (page)="handlePageEvent($event)"
+        [length]="listData?.totalNumberOfPages" [pageSize]="pageSize" [pageIndex]="pageNumber" [disabled]="disabled"
+        [showFirstLastButtons]="showFirstLastButtons" [pageSizeOptions]="[5, 10, 25, 100]" [hidePageSize]="hidePageSize"
+        aria-label="Select page">
+      </mat-paginator>
+    </div>
+  </div>
+</section>
