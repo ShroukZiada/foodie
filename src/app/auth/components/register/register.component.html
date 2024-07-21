@@ -1,196 +1,327 @@
-<section class="auth ">
-  <div class="container">
-    <div class="row vh-100 justify-content-center align-items-center">
-      <div class="col-md-8">
-        <div class="auth-card ">
-          <div class="w-50 m-auto">
-            <img src="../../../../assets/images/logo.svg" class="w-75" alt="" />
-          </div>
-          <h1>reister</h1>
-          <p>Welcome Back! Please enter your details</p>
-
-          <div class="col-md-12">
-            <ngx-dropzone class="imgUpload" (change)="onSelect($event)">
-              <ngx-dropzone-label>
-                <i class="fa fa-solid fa-upload"></i>
-                Upload Your Image
-              </ngx-dropzone-label>
-              <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files " [removable]="true"
-                (removed)="onRemove(f)" [file]="f">
-                <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
-              </ngx-dropzone-image-preview>
-            </ngx-dropzone>
-          </div>
-          <form [formGroup]="registerForm" (ngSubmit)="submitRegister(registerForm)">
-            <div class="row">
-              <div class="col-6">
-                <div class="input-group mb-3">
-                  <span class="input-group-text" id="basic-addon1"><i class="fa-regular fa-user"></i></span>
-                  <input formControlName="userName" type="text" class="form-control" placeholder="userName"
-                    aria-label="userName" aria-describedby="basic-addon1" />
-                </div>
-                <div class="" *ngIf="  registerForm.get('userName')?.touched">
-                  <p class=" text-success" *ngIf="registerForm.get('userName')?.errors == null"> <i
-                      class="fa-solid fa-check me-2 text-success"></i>
-                    userName Is Valid</p>
-                  <p class=" text-danger"
-                    *ngIf="registerForm.get('userName')?.errors !== null && registerForm.get('userName')?.errors?.['pattern']">
-                    <i class="fa-solid fa-triangle-exclamation me-2 text-danger"></i>Enter
-                    Valid userName
-                  </p>
-                  <p class="text-danger"
-                    *ngIf="registerForm.get('userName')?.errors !== null && registerForm.get('userName')?.errors?.['required']">
-                    <i class="fa-solid fa-triangle-exclamation me-2 text-danger"></i>userName
-                    is required
-                  </p>
-                </div>
-              </div>
-
-              <div class="col-6">
-                <div class="input-group mb-3"><span class="input-group-text" id="basic-addon1"><i
-                      class="fa-regular fa-envelope"></i></span>
-                  <input formControlName="email" type="email" class="form-control" placeholder="Enter your E-mail"
-                    aria-label="email" aria-describedby="basic-addon1" />
-                </div>
-
-                <div class="" *ngIf="  registerForm.get('email')?.touched">
-                  <p class=" text-success" *ngIf="registerForm.get('email')?.errors == null">
-                    <i class="fa-solid fa-check me-2 text-success"></i>
-                    Email Is Valid
-                  </p>
-                  <p class=" text-danger"
-                    *ngIf="registerForm.get('email')?.errors !== null && registerForm.get('email')?.errors?.['pattern']">
-                    <i class="fa-solid fa-triangle-exclamation me-2 text-danger"></i>Enter
-                    Valid Email
-                  </p>
-                  <p class="text-danger"
-                    *ngIf="registerForm.get('email')?.errors !== null && registerForm.get('email')?.errors?.['required']">
-                    <i class="fa-solid fa-triangle-exclamation me-2 text-danger"></i>Email
-                    is required
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-
-              <div class="col-6">
-                <div class="input-group mb-3">
-                  <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-globe"></i></span>
-                  <input formControlName="country" class="form-control" placeholder="country" aria-label="country"
-                    type="text" aria-describedby="basic-addon1" />
-                </div>
-                <div class="" *ngIf="  registerForm.get('country')?.touched">
-                  <p class=" text-success" *ngIf="registerForm.get('country')?.errors == null"> <i
-                      class="fa-solid fa-check me-2 text-success"></i>
-                    country Is Valid
-                  </p>
-                  <p class=" text-danger"
-                    *ngIf="registerForm.get('country')?.errors !== null && registerForm.get('country')?.errors?.['pattern']">
-                    <i class="fa-solid fa-triangle-exclamation me-2 text-danger"></i>
-                    EnterValid country
-                  </p>
-                  <p class="text-danger"
-                    *ngIf="registerForm.get('country')?.errors !== null && registerForm.get('country')?.errors?.['required']">
-                    <i class="fa-solid fa-triangle-exclamation me-2 text-danger"></i>country
-                    is Required
-                  </p>
-                </div>
-              </div>
+<section class="auth overflow-hidden">
+	<div class="container">
+		<div class="row  justify-content-center align-items-center">
+			<div class="col-md-8">
+				<div class="auth-card position-relative">
+					<div class="w-50 m-auto">
+						<img src="../../../../assets/images/logo.svg" class="w-75" alt="" />
+					</div>
+					<h1>reister</h1>
+					<p>Welcome Back! Please enter your details</p>
+					<button type="button" class="text-white btn-outline-danger bg-success py-1 px-2"
+						(click)="toggleRegister = !toggleRegister">
+						<i class="fa fa-user text-white" *ngIf="!toggleRegister"></i>
+						<i class="fa fa-user-shield text-white" *ngIf="toggleRegister"></i>
+						{{!toggleRegister ? 'Create User' : ' Create Admin' }} </button>
 
 
-              <div class="col-6">
-                <div class="input-group mb-3"><span class="input-group-text" id="basic-addon1"><i
-                      class="fa-solid fa-mobile-screen"></i></span>
-                  <input formControlName="phoneNumber" class="form-control" placeholder="phoneNumber" type="tel"
-                    aria-label="phoneNumber" aria-describedby="basic-addon1" />
-                </div>
-                <div class="" *ngIf="  registerForm.get('phoneNumber')?.touched">
-                  <p class=" text-success" *ngIf="registerForm.get('phoneNumber')?.errors == null"> <i
-                      class="fa-solid fa-check me-2 text-success"></i>
-                    country Is Valid
-                  </p>
-                  <p class=" text-danger"
-                    *ngIf="registerForm.get('phoneNumber')?.errors !== null && registerForm.get('phoneNumber')?.errors?.['pattern']">
-                    <i class="fa-solid fa-triangle-exclamation me-2 text-danger"></i>
-                    Enter Valid phoneNumber
-                  </p>
-                  <p class="text-danger"
-                    *ngIf="registerForm.get('phoneNumber')?.errors !== null && registerForm.get('phoneNumber')?.errors?.['required']">
-                    <i class="fa-solid fa-triangle-exclamation me-2 text-danger"></i>
-                    phoneNumber is Required
-                  </p>
-                </div>
-              </div>
-            </div>
 
-            <div class="row">
-              <div class="col-6">
-                <div class="input-group mb-3">
-                  <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-lock"></i></span>
-                  <input formControlName="password" [type]="hide? 'password':'text'" class="form-control"
-                    placeholder="password" aria-label="password" aria-describedby="basic-addon1" />
-                  <span class="position-absolute icon" (click)="hide =!hide"><i class="fa fa-solid"
-                      [class]="hide?'fa-eye-slash': 'fa-eye'"></i></span>
-                </div>
+					<!-- TODO Start User Form -->
+					<form class="w-100 px-5" [formGroup]="userRegisterForm" (ngSubmit)="userSubmitRegister(userRegisterForm)"
+						[class]="toggleRegister ? 'translate-registrationForm' : ''">
+						<!-- *! Start Ngx-dropzone for image -->
+						<div class="d-flex justify-content-center align-items-center  m-auto center w-25  rounded rounded-1"
+							style="border: 1px dotted seagreen;">
+							<ng-container *ngIf="imageUploaded">
+								<div class="edit ">
+									<ngx-file-drop dropZoneClassName="" [multiple]="false" dropZoneLabel="Drop files here"
+										(onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+										<ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+											<div>
+												<button type="button" (click)="openFileSelector()" class="iconEdit">
+													<i class="fa-solid fa-pen   "></i>
+												</button>
+											</div>
+										</ng-template>
+									</ngx-file-drop>
+								</div>
+							</ng-container>
+							<ngx-file-drop dropZoneClassName="drop-zone" *ngIf="!imageUploaded " [multiple]="false"
+								dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)"
+								(onFileLeave)="fileLeave($event)">
+								<ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+									<div>
+										<button type="button" (click)="openFileSelector()"
+											class="bg-transparent d-flex flex-column align-items-center">
+											<i class="fa-solid fa-upload fs-4 mb-2 text-success"></i>
+											<span class=" upload text-dark">
+												Upload your profile image</span>
+										</button>
+									</div>
+								</ng-template>
+							</ngx-file-drop>
 
-                <div class="" *ngIf="  registerForm.get('password')?.touched">
-                  <p class=" text-success" *ngIf="registerForm.get('password')?.errors == null"><i
-                      class="fa-solid fa-check me-2 text-success"></i>
-                    password Is Valid</p>
-                  <p class=" text-danger"
-                    *ngIf="registerForm.get('password')?.errors !== null && registerForm.get('password')?.errors?.['pattern']">
-                    <i class="fa-solid fa-triangle-exclamation me-2 text-danger"></i>Password
-                    must contain at least one
-                    digit,one lowercase letter,one uppercase letter, one special
-                    character, and is at least 8 characters
-                    long.
-                  </p>
+							<div *ngIf="imageUploaded" class="drop-zone">
+								<img [src]="imageUrl" class="w-100 img-fluid photo" alt="Uploaded Image">
+							</div>
+						</div>
+						<!-- *! End Ngx-dropzone for image -->
 
-                  <p class="text-danger"
-                    *ngIf="registerForm.get('password')?.errors !== null && registerForm.get('password')?.errors?.['required']">
-                    <i class="fa-solid fa-triangle-exclamation me-2 text-danger"></i>
-                    password is required
-                  </p>
-                </div>
+						<div class="row  w-100 mt-3">
+							<!--? userName  -->
+							<div class="col-md-6 col-12">
+								<mat-form-field class="w-100">
+									<mat-label class="lable">User Name</mat-label>
+									<input formControlName="userName" type="text" placeholder="Enter your name" class="inp text-success"
+										matInput>
+									<mat-error>Name is require</mat-error>
+								</mat-form-field>
+							</div>
+							<!--? Email  -->
+							<div class="col-md-6 col-12">
+								<mat-form-field class="w-100">
+									<mat-label class="lable">E-mail</mat-label>
+									<input [(ngModel)]="email" formControlName="email" type="email" placeholder="Enter your E-mail"
+										class="inp text-success" matInput>
+									<mat-error
+										*ngIf="userRegisterForm.get('email')?.getError('required')&&(userRegisterForm.get('email')?.value!=''||userRegisterForm.get('email')?.touched||userRegisterForm.invalid)">Email
+										is required
+									</mat-error>
+									<mat-error *ngIf="userRegisterForm.get('email')?.getError('email')">Email
+										is
+										not
+										Valid
+									</mat-error>
+								</mat-form-field>
+							</div>
 
-              </div>
+							<!--? country -->
+							<div class="col-md-6 col-12">
+								<mat-form-field class="w-100">
+									<mat-label class="lable">Country</mat-label>
+									<input formControlName="country" type="text" placeholder="Enter your country" class="inp text-success"
+										matInput>
+									<mat-error>Country name is required</mat-error>
+								</mat-form-field>
+							</div>
+							<!--? phone  -->
+							<div class="col-md-6 col-12">
+								<mat-form-field class="w-100">
+									<mat-label class="lable">Phone Number</mat-label>
+									<input formControlName="phoneNumber" type="tel" placeholder="Enter your phone number"
+										class="inp text-success" matInput>
+									<mat-error
+										*ngIf="userRegisterForm.get('phoneNumber')?.getError('required')&&(userRegisterForm.get('phoneNumber')?.value!=''||userRegisterForm.get('phoneNumber')?.touched||userRegisterForm.invalid)">Phone
+										is required
+									</mat-error>
+									<mat-error *ngIf="userRegisterForm.get('phoneNumber')?.getError('pattern')">Number
+										is
+										invalid
+									</mat-error>
+								</mat-form-field>
+							</div>
+							<!--? password  -->
+							<div class="col-md-6 col-12">
+								<mat-form-field class="w-100 mb-2">
+									<mat-label class="lable">Password</mat-label>
+									<input formControlName="password" class="inp text-dark" matInput placeholder="Enter your password"
+										[type]="hidePaasword ? 'password' : 'text'">
+									<button type="button" mat-icon-button matSuffix (click)="hidePaasword = !hidePaasword"
+										[attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePaasword">
+										<mat-icon class="text-success">{{hidePaasword ? 'visibility_off' :
+											'visibility'}}</mat-icon>
+									</button>
+									<mat-error
+										*ngIf="userRegisterForm.get('password')?.errors !== null && userRegisterForm.get('password')?.errors?.['required']">Password
+										is required
+									</mat-error>
+									<mat-error
+										*ngIf="userRegisterForm.get('password')?.errors !== null && userRegisterForm.get('password')?.errors?.['pattern'] && userRegisterForm.get('password')?.value !== localPss">Entet
+										password vaild
+									</mat-error>
+								</mat-form-field>
+							</div>
+							<!--? confirmPassword  -->
+							<div class="col-md-6 col-12">
+								<mat-form-field class="w-100">
+									<mat-label class="lable">Confirm Password</mat-label>
+									<input formControlName="confirmPassword" placeholder="Confirm New Password" class=" text-success"
+										matInput [type]="hideCOMFPaasword ? 'password' : 'text'">
+									<button type="button" mat-icon-button matSuffix (click)="hideCOMFPaasword = !hideCOMFPaasword"
+										[attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideCOMFPaasword">
+										<mat-icon class="text-success">{{hideCOMFPaasword ? 'visibility_off' :
+											'visibility'}}</mat-icon>
+									</button>
+									<mat-error
+										*ngIf="userRegisterForm.get('confirmPassword')?.getError('required')&&(userRegisterForm.get('confirmPassword')?.value!=''||userRegisterForm.get('confirmPassword')?.touched||userRegisterForm.invalid)">confirmPassword
+										is required
+									</mat-error>
+									<mat-error
+										*ngIf=" userRegisterForm.get('confirmPassword')?.touched && userRegisterForm.get('confirmPassword')?.getError('passwordMisMatch') ">Password
+										not match
+									</mat-error>
+								</mat-form-field>
+							</div>
+						</div>
+						<div class="d-flex justify-content-between container-fluid">
+							<a class="text-decoration-none text-dark cursor-pointer">you have an account?
+								<span routerLink="/auth" class="text-success cp">Sign in</span></a>
+							<a class="text-decoration-none text-success cursor-pointer btn"
+								(click)="openDialog('00ms','350ms','')">Verify
+								Now</a>
+						</div>
+						<button [disabled]="userRegisterForm.invalid"
+							class="reg-btn w-50 btn btn-success rounded-pill text-white d-block mx-auto py-2 mt-4">register
+							<i *ngIf="isLoading" class="fa-solid fa-spinner fa-spin-pulse"></i>
+						</button>
+					</form>
 
-              <div class="col-6">
-                <div class="input-group mb-3">
-                  <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-lock"></i></span>
-                  <input formControlName="confirmPassword" [type]="ishide? 'password':'text'" class="form-control"
-                    placeholder="confirmPassword" aria-label="confirmPassword" aria-describedby="basic-addon1" />
-                  <span class="position-absolute icon" (click)="ishide =!ishide"><i class="fa fa-solid"
-                      [class]="ishide?'fa-eye-slash': 'fa-eye'"></i></span>
-                </div>
-
-                <div class="" *ngIf="  registerForm.hasError('passwordMatch')">
-                  <p class=" text-success" *ngIf="registerForm.get('confirmPassword')?.errors == null"><i
-                      class="fa-solid fa-check me-2 text-success"></i>
-                    password Is Valid</p>
-                  <p class=" text-danger"
-                    *ngIf="registerForm.get('confirmPassword')?.errors !== null && registerForm.get('confirmPassword')?.errors?.['pattern']">
-                    <i class="fa-solid fa-triangle-exclamation me-2 text-danger"></i>password
-                    must be matched
-                  </p>
-                  <p class="text-danger"
-                    *ngIf="registerForm.get('confirmPassword')?.errors !== null && registerForm.get('confirmPassword')?.errors?.['required']">
-                    <i class="fa-solid fa-triangle-exclamation me-2 text-danger"></i>password
-                    must be matched
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="links ">
-              <a routerLink="/auth" class="text-dark-gray">login now?</a>
-              <button type="button" class="px-3 py-1 dark-outline" (click)="openDialog()"> Have Code</button>
-            </div>
-            <button type="submit" class="primary w-100 mt-4">Register</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
+					<!-- TODO End User Form -->
 
 
+					<!-- ?Start Admin Form -->
+					<form [formGroup]="adminRegisterForm" (ngSubmit)="adminSubmitRegister(adminRegisterForm)"
+						class="w-100 adminForm position-absolute px-5" [class]="toggleRegister ? '' : 'translate-adminForm'">
+						<!-- *! Start Ngx-dropzone for image -->
+						<div class="d-flex justify-content-center align-items-center  m-auto center w-25  rounded rounded-1"
+							style="border: 1px dotted seagreen;">
+							<ng-container *ngIf="imageUploaded">
+								<div class="edit ">
+									<ngx-file-drop dropZoneClassName="" [multiple]="false" dropZoneLabel="Drop files here"
+										(onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+										<ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+											<div>
+												<button type="button" (click)="openFileSelector()" class="iconEdit">
+													<i class="fa-solid fa-pen   "></i>
+												</button>
+											</div>
+										</ng-template>
+									</ngx-file-drop>
+								</div>
+							</ng-container>
+							<ngx-file-drop dropZoneClassName="drop-zone" *ngIf="!imageUploaded " [multiple]="false"
+								dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)"
+								(onFileLeave)="fileLeave($event)">
+								<ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+									<div>
+										<button type="button" (click)="openFileSelector()"
+											class="bg-transparent d-flex flex-column align-items-center">
+											<i class="fa-solid fa-upload fs-4 mb-2 text-success"></i>
+											<span class=" upload text-dark">
+												Upload your profile image</span>
+										</button>
+									</div>
+								</ng-template>
+							</ngx-file-drop>
+
+							<div *ngIf="imageUploaded" class="drop-zone">
+								<img [src]="imageUrl" class="w-100 img-fluid photo" alt="Uploaded Image">
+							</div>
+						</div>
+						<!-- *! End Ngx-dropzone for image -->
+
+						<div class="row  mt-3">
+							<!--? userName  -->
+							<div class="col-md-6 col-12">
+								<mat-form-field class="w-100">
+									<mat-label class="lable">User Name</mat-label>
+									<input formControlName="userName" type="text" placeholder="Enter your name" class="inp text-success"
+										matInput>
+									<mat-error>Name is require</mat-error>
+								</mat-form-field>
+							</div>
+							<!--? Email  -->
+							<div class="col-md-6 col-12">
+								<mat-form-field class="w-100">
+									<mat-label class="lable">E-mail</mat-label>
+									<input [(ngModel)]="email" formControlName="email" type="email" placeholder="Enter your E-mail"
+										class="inp text-success" matInput>
+									<mat-error
+										*ngIf="adminRegisterForm.get('email')?.getError('required')&&(adminRegisterForm.get('email')?.value!=''||adminRegisterForm.get('email')?.touched||adminRegisterForm.invalid)">Email
+										is required
+									</mat-error>
+									<mat-error *ngIf="adminRegisterForm.get('email')?.getError('email')">Email
+										is
+										not
+										Valid
+									</mat-error>
+								</mat-form-field>
+							</div>
+							<!--? country -->
+							<div class="col-md-6 col-12">
+								<mat-form-field class="w-100">
+									<mat-label class="lable">Country</mat-label>
+									<input formControlName="country" type="text" placeholder="Enter your country" class="inp text-success"
+										matInput>
+									<mat-error>Country name is required</mat-error>
+								</mat-form-field>
+							</div>
+							<!--? phone  -->
+							<div class="col-md-6 col-12">
+								<mat-form-field class="w-100">
+									<mat-label class="lable">Phone Number</mat-label>
+									<input formControlName="phoneNumber" type="tel" placeholder="Enter your phone number"
+										class="inp text-success" matInput>
+									<mat-error
+										*ngIf="adminRegisterForm.get('phoneNumber')?.getError('required')&&(adminRegisterForm.get('phoneNumber')?.value!=''||adminRegisterForm.get('phoneNumber')?.touched||adminRegisterForm.invalid)">Phone
+										is required
+									</mat-error>
+									<mat-error *ngIf="adminRegisterForm.get('phoneNumber')?.getError('pattern')">Number
+										is
+										invalid
+									</mat-error>
+								</mat-form-field>
+							</div>
+							<!--? password  -->
+							<div class="col-md-6 col-12">
+								<mat-form-field class="w-100 mb-2">
+									<mat-label class="lable">Password</mat-label>
+									<input formControlName="password" class="inp text-dark" matInput placeholder="Enter your password"
+										[type]="hidePaasword ? 'password' : 'text'">
+									<button type="button" mat-icon-button matSuffix (click)="hidePaasword = !hidePaasword"
+										[attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePaasword">
+										<mat-icon class="text-success">{{hidePaasword ? 'visibility_off' :
+											'visibility'}}</mat-icon>
+									</button>
+									<mat-error
+										*ngIf="adminRegisterForm.get('password')?.errors !== null && adminRegisterForm.get('password')?.errors?.['required']">Password
+										is required
+									</mat-error>
+									<mat-error
+										*ngIf="adminRegisterForm.get('password')?.errors !== null && adminRegisterForm.get('password')?.errors?.['pattern'] && adminRegisterForm.get('password')?.value !== localPss">Entet
+										password vaild
+									</mat-error>
+								</mat-form-field>
+							</div>
+
+							<!--? confirmPassword  -->
+							<div class="col-md-6 col-12">
+								<mat-form-field class="w-100">
+									<mat-label class="lable">Confirm Password</mat-label>
+									<input formControlName="confirmPassword" placeholder="Confirm New Password" class=" text-success"
+										matInput [type]="hideCOMFPaasword ? 'password' : 'text'">
+									<button type="button" mat-icon-button matSuffix (click)="hideCOMFPaasword = !hideCOMFPaasword"
+										[attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideCOMFPaasword">
+										<mat-icon class="text-success">{{hideCOMFPaasword ? 'visibility_off' :
+											'visibility'}}</mat-icon>
+									</button>
+									<mat-error
+										*ngIf="adminRegisterForm.get('confirmPassword')?.getError('required')&&(adminRegisterForm.get('confirmPassword')?.value!=''||adminRegisterForm.get('confirmPassword')?.touched||adminRegisterForm.invalid)">confirmPassword
+										is required
+									</mat-error>
+									<mat-error
+										*ngIf=" adminRegisterForm.get('confirmPassword')?.touched && adminRegisterForm.get('confirmPassword')?.getError('passwordMatchValidator') ">Password
+										not match
+									</mat-error>
+								</mat-form-field>
+							</div>
+
+							<div class="d-flex justify-content-between container-fluid">
+								<a class="text-decoration-none text-dark cursor-pointer">you have an account?
+									<span routerLink="/auth" class="text-success cp">Sign in</span></a>
+								<a class="text-decoration-none text-success cursor-pointer btn"
+									(click)="openDialog('00ms','350ms','')">Verify
+									Now</a>
+							</div>
+							<button [disabled]="adminRegisterForm.invalid"
+								class="reg-btn w-50 btn btn-success rounded-pill text-white d-block mx-auto py-2 mt-4">register
+								<i *ngIf="loading" class="fa-solid fa-spinner fa-spin-pulse"></i>
+							</button>
+						</div>
+					</form>
+					<!-- ?End Admin Form -->
+				</div>
+			</div>
+		</div>
+	</div>
 </section>

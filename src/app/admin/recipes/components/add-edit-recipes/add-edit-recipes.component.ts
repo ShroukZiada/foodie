@@ -3,7 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ICategory, ITag } from '../../interface/recipe';
 import { HelperService } from 'src/app/shared/services/helper.service';
 import { RecipeService } from '../../services/recipe.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -17,7 +17,10 @@ export class AddEditRecipesComponent implements OnInit {
     private _helper: HelperService,
     private _recipe: RecipeService,
     private toastr: ToastrService,
-    private _router: Router) { }
+    private _ActivatedRoute:ActivatedRoute,
+    private _router: Router) { 
+     let id = this._ActivatedRoute.snapshot.params['id']
+    }
   ngOnInit(): void {
     this.getAllGategories()
     this.getAllTags()
@@ -51,7 +54,7 @@ export class AddEditRecipesComponent implements OnInit {
         this._router.navigate(['dashboard/admin/recipes']);
       },
       error: () => {
-        // this._toastr.error('error');
+        this.toastr.error('error');
       },
       complete: () => {
         this.toastr.success(`Recipe Added Successfuly`);
@@ -72,6 +75,8 @@ export class AddEditRecipesComponent implements OnInit {
     this._helper.getGategories().subscribe({
       next: (res) => {
         this.Gategories = res.data
+        console.log(this.Gategories);
+        
       }
     })
   }

@@ -3,17 +3,38 @@
      background-position: center center;
      background-size: cover;
      background-repeat: no-repeat;
-     height: 100vh;
+     // height: 100vh;
 }
 
 .icon {
      right: 16px;
      top: 7px;
 }
+.adminForm {
+     top: 235px !important;
+     width: 100%;
+}
 
-.imgUpload {
-     width: 154px;
-     height: 149px;
-     border-radius: 50%;
-     margin-bottom: 1rem;
+form {
+     transition: 0.4s linear;
+}
+
+form:nth-child(1) {
+     flex: 1;
+     transform: translateX(2%);
+}
+
+form.translate-registrationForm {
+     flex: 0;
+     transform: translateX(-220%);
+}
+
+form:nth-child(2) {
+     flex: 1;
+     transform: translateX(-12%);
+}
+
+form.translate-adminForm {
+     flex: 0;
+     transform: translateX(212%);
 }

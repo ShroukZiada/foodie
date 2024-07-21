@@ -11,19 +11,4 @@ export interface IUserRecipe {
  price: CurrencyPipe;
 
 
- // category: [
- //  {
- //   id: number,
- //   name: string,
- //   creationDate: number;
- //   modificationDate: number;
- //  }
- // ],
- //  tag: {
- //   id: number;
- //   name: string;
- //   creationDate: number;
- //   modificationDate: number;
- // }
-
 }

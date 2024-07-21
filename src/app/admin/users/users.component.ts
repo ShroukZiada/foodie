@@ -36,10 +36,6 @@ export class UsersComponent implements OnInit {
 
 
 
-
-
-
-
   getAllUsers() {
     let params = {
       name: this.searchValue,

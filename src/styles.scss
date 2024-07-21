@@ -40,6 +40,9 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 $main-color: #4AA35A;
@@ -115,6 +118,10 @@ button {
 
 }
 
+.MC {
+  color: #4AA35A;
+}
+
 .cp {
   cursor: pointer;
 }
@@ -134,9 +141,9 @@ button {
 }
 
 .tableImg {
-  height: 50px;
-  width: 50px;
-  border-radius: 16px;
+  height: 55px;
+  width: 55px;
+  border-radius: 10px;
 }
 
 .h_ {
@@ -153,6 +160,5 @@ button {
 .head {
   border-radius: 18px;
   background: #E2E5EB;
-
 
 }

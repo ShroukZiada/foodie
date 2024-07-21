@@ -23,7 +23,7 @@ export class UserRecipeComponent implements OnInit {
   pageSize: number = 10;
   pageNumber: number = 1;
   categoryItem: string = '';
-  listData: any;
+  userRecipeList: any;
   totalPages: any;
   imgUrl: string = 'https://upskilling-egypt.com:3006/';
   empImg: string = '../../../assets/images/emp.jpg'
@@ -32,8 +32,6 @@ export class UserRecipeComponent implements OnInit {
   searchValue: string = ''
   tagId: number = 0;
   catId: number = 0;
-
-
   selectedCategory: ICategory | undefined;
   constructor(private _RecipeService: RecipeService, private dialog: MatDialog,
     private _HelperService: HelperService, private toastr: ToastrService,
@@ -54,7 +52,7 @@ export class UserRecipeComponent implements OnInit {
     };
     this._RecipeService.getAllRecipes(params).subscribe({
       next: (res) => {
-        this.listData = res;
+        this.userRecipeList = res;
         console.log(res)
       },
       error: () => { }
@@ -122,7 +120,7 @@ export class UserRecipeComponent implements OnInit {
     })
   }
 
-  recipeID: any;
+  recipeID?: number;
   addToWishList(id: number, event: any) {
     let fillCondition = Array.from(event.target.classList).includes('pi-heart')
 
@@ -135,6 +133,7 @@ export class UserRecipeComponent implements OnInit {
           event.target.classList.replace('pi-heart', 'pi-heart-fill')
           // console.log(event.target);
           // this._FavService.numOfwishList.next(res.data.length)
+          this.toastr.success('Recipe Added to favourite ' )
         }
       })
 
@@ -161,7 +160,6 @@ export class UserRecipeComponent implements OnInit {
 
 
   openUserDialog(userDate: IUserRecipe): void {
-    // console.log();
 
     const dialogRef = this.dialog.open(ViewUserRecipeComponent, {
       data: userDate

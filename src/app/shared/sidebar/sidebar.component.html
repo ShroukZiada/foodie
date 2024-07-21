@@ -1,19 +1,30 @@
-<section class="bg-dark-main vh-100 px-0">
- <div class="">
-  <img src="../../../assets/images/3.svg" class="w-75" alt="">
- </div>
- <div class="mt-3">
-  <ul class="px-0 ">
-   <ng-container *ngFor="let sideitmes of menu">
-    <li *ngIf="sideitmes.isActive" class="list-unstyled">
-     <a [routerLink]="sideitmes.link" class="sideItems d-block " routerLinkActive="active-ul">
-      <span>
-       <i [class]="sideitmes.icon"></i>
-      </span>
-      <span class="text-capitalize">{{sideitmes.text}}</span>
-     </a>
-    </li>
-   </ng-container>
-  </ul>
- </div>
+<style>
+  ::ng-deep :host {
+    display: block;
+    height: 100%;
+  }
+</style>
+<section #sect class="bg-dash" [style.height]="height">
+  <div class="sideBar d-flex flex-column justify-content-around vh-100" [ngClass]="{'active-sidebar': opened}" #parElm>
+    <div (click)="toggleSidebar()" role="button" class="d-flex justify-content-start align-items-center icon "
+      [ngClass]="{'closed': !opened, 'opened': opened}">
+      <span></span>
+      <span></span>
+    </div>
+    <!-- <img src="../../../assets/images/1.svg" class="w-25" alt=""> -->
+
+    <div class="pages-links h-75">
+
+      <ul #elm>
+        <ng-container *ngFor="let sideitmes of menu">
+          <li *ngIf="sideitmes.isActive" class="list-unstyled">
+            <a [routerLink]="sideitmes.link" class="sideItems d-block " routerLinkActive="active-ul">
+              <i [class]="sideitmes['icon']" class="fluid-sm-text"></i>
+              <span class="fluid-sm-text">{{ sideitmes.text }}</span>
+            </a>
+          </li>
+        </ng-container>
+      </ul>
+    </div>
+  </div>
 </section>

@@ -17,9 +17,9 @@ export class RecipesComponent implements OnInit {
 
   name: any;
   pageSize: number = 10;
-  pageNumber: number = 1;
+  pageNumber: number = 0;
   categoryItem: string = '';
-  listData: any;
+  recipeList: any;
   totalPages: any;
   imgUrl: string = 'https://upskilling-egypt.com:3006/';
   empImg: string = '../../../assets/images/emp.jpg'
@@ -48,7 +48,7 @@ export class RecipesComponent implements OnInit {
     };
     this._RecipeService.getAllRecipes(params).subscribe({
       next: (res) => {
-        this.listData = res;
+        this.recipeList = res;
         console.log(res)
       },
       error: () => { }
@@ -80,7 +80,7 @@ export class RecipesComponent implements OnInit {
     // console.log(categoryData.name);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log(result)
+        // console.log(result)
 
         // this.onEditCategory(categoryData.id, result)
       }
@@ -88,7 +88,7 @@ export class RecipesComponent implements OnInit {
   }
 
   opendeleteDialog(id: number): void {
-    console.log(id)
+    // console.log(id)
     const dialogRef = this.dialog.open(DeleteComponent, {
       data: { categoryId: id },
     });
@@ -106,7 +106,7 @@ export class RecipesComponent implements OnInit {
   onDeleteItem(id: number) {
     this._RecipeService.deleteRecipes(id).subscribe({
       next: (res) => {
-        console.log(res)
+        // console.log(res)
       },
       error: () => { },
       complete: () => {
@@ -126,7 +126,7 @@ export class RecipesComponent implements OnInit {
   disabled = false;
 
   handlePageEvent(e: PageEvent) {
-    console.log(e);
+    // console.log(e);
 
     //any change in pageSize , pageNumber call el Gatogery
     this.length = e.length;

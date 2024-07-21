@@ -3,63 +3,53 @@
           <div class="row vh-100 justify-content-center align-items-center">
                <div class="col-md-10">
                     <div class="auth-card ">
-                         <div class="w-50 m-auto">
+                         <div class="w-50 m-auto text-center">
                               <img src="../../assets/images/logo.svg" class="w-75" alt="" />
                          </div>
-                         <h1>login</h1>
-                         <p>Welcome Back! Please enter your details</p>
-                         <form [formGroup]="authForm" (ngSubmit)="submitAuthForm(authForm)">
+                         <div class="text-center">
+                              <h1>login</h1>
+                              <p>Welcome Back! Please enter your details</p>
+                         </div>
+                         <form [formGroup]="authForm" (ngSubmit)="submitAuthForm(authForm)" class="text-center">
+                              <!--? Email -->
+                              <mat-form-field class="w-75 mb-2">
+                                   <input formControlName="email" type="email" class="inp text-dark"
+                                        placeholder="Enter your E-mail" matInput>
+                                   <mat-error
+                                        *ngIf="authForm.get('email')?.errors !== null && authForm.get('email')?.errors?.['required']">Email
+                                        is required</mat-error>
+                                   <mat-error *ngIf="authForm.get('email')?.errors == null">Email
+                                        is Vaild
+                                   </mat-error>
+                              </mat-form-field>
 
-                              <div class="input-group mb-3">
-                                   <span class="input-group-text" id="basic-addon1"><i
-                                             class="fa-regular fa-envelope"></i></span>
-                                   <input formControlName="email" type="email" class="form-control"
-                                        placeholder="enter your email" aria-label="Username"
-                                        aria-describedby="basic-addon1" />
+                              <!--? Password -->
+                              <mat-form-field class="w-75 mb-2">
+                                   <mat-label class="lable">Password</mat-label>
+                                   <input formControlName="password" class="inp text-dark" matInput
+                                        placeholder="Enter your password" [type]="hide ? 'password' : 'text'">
+                                   <button type="button" mat-icon-button matSuffix (click)="hide = !hide"
+                                        [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                        <mat-icon class="text-white">{{hide ? 'visibility_off' :
+                                             'visibility'}}</mat-icon>
+                                   </button>
+                                   <mat-error
+                                        *ngIf="authForm.get('password')?.errors !== null && authForm.get('password')?.errors?.['required']">Password
+                                        is required
+                                   </mat-error>
+                                   <mat-error
+                                        *ngIf="authForm.get('password')?.errors !== null && authForm.get('password')?.errors?.['pattern'] && authForm.get('password')?.value !== localPss">Entet
+                                        password vaild
+                                   </mat-error>
+                              </mat-form-field>
+                              <div class="links w-75 align-items-center m-auto text-center">
+                                   <a routerLink="/auth/register" class="text-success">register now?</a>
+                                   <a routerLink="/auth/forgetPassword" class="text-success">forget pasword</a>
                               </div>
-                              <div class="" *ngIf="  authForm.get('email')?.touched">
-                                   <p class=" text-success" *ngIf="authForm.get('email')?.errors == null"> <i
-                                             class="fa-solid fa-check me-2 text-success"></i> Email Is Valid</p>
-                                   <p class=" text-danger"
-                                        *ngIf="authForm.get('email')?.errors !== null && authForm.get('email')?.errors?.['pattern']">
-                                        <i class="fa-solid fa-triangle-exclamation me-2 text-danger"></i>Enter Valid
-                                        Email
-                                   </p>
-                                   <p class="text-danger"
-                                        *ngIf="authForm.get('email')?.errors !== null && authForm.get('email')?.errors?.['required']">
-                                        <i class="fa-solid fa-triangle-exclamation me-2 text-danger"></i>Email is
-                                        required
-                                   </p>
-                              </div>
-                              <div class="input-group mb-3">
-                                   <span class="input-group-text" id="basic-addon1"><i
-                                             class="fa-solid fa-lock"></i></span>
-                                   <input formControlName="password" [type]="hide? 'password':'text'"
-                                        class="form-control" placeholder="password" aria-label="password"
-                                        aria-describedby="basic-addon1" />
-                                   <span class="position-absolute icon" (click)="hide =!hide"><i class="fa fa-solid"
-                                             [class]="hide?'fa-eye-slash': 'fa-eye'"></i></span>
-                              </div>
-                              <div class="" *ngIf="  authForm.get('password')?.touched">
-                                   <p class=" text-success" *ngIf="authForm.get('password')?.errors == null"><i
-                                             class="fa-solid fa-check me-2 text-success"></i> password Is Valid</p>
-                                   <p class=" text-danger"
-                                        *ngIf="authForm.get('password')?.errors !== null && authForm.get('password')?.errors?.['pattern'] && authForm.get('password')?.value !== localPss">
-                                        <i class="fa-solid fa-triangle-exclamation me-2 text-danger"></i>Enter Valid
-                                        Password
-                                   </p>
-                                   <p class="text-danger"
-                                        *ngIf="authForm.get('password')?.errors !== null && authForm.get('password')?.errors?.['required']">
-                                        <i class="fa-solid fa-triangle-exclamation me-2 text-danger"></i>password is
-                                        required
-                                   </p>
-                              </div>
-                              <div class="links ">
-                                   <a routerLink="/register" class="text-dark-gray">register now?</a>
-                                   <a routerLink="reset" class="text-color">forget pasword</a>
-                              </div>
-                              <button [disabled]="authForm.invalid" type="submit" class="primary w-100 mt-4 ">
-                                   log in</button>
+                              <button
+                                   class="btn log-btn btn-success rounded-pill text-white w-75 py-3 d-block mx-auto mt-5"
+                                   [disabled]="authForm.invalid" type="submit">Login
+                              </button>
                          </form>
                     </div>
                </div>

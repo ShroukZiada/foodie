@@ -7,12 +7,5 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./not-found-page.component.scss']
 })
 export class NotFoundPageComponent {
-  notFoundFullHeight: boolean = false;
-  constructor(private _ActivatedRoute: ActivatedRoute) { }
 
-  ngOnInit(): void {
-    if (this._ActivatedRoute.snapshot.data[0]) {
-      this.notFoundFullHeight = !this.notFoundFullHeight;
-    }
-  }
 }

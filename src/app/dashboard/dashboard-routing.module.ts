@@ -8,7 +8,7 @@ import { NotFoundPageComponent } from '../shared/not-found-page/not-found-page.c
 
 const routes: Routes = [
   {
-    path: '', component: DashboardComponent, children: [
+    path: '', component: DashboardComponent ,children: [
       { path: 'home', component: HomeComponent },
       { path: 'admin', canActivate: [AdminClassGuard], loadChildren: () => import('../admin/admin.module').then(m => m.AdminModule) },
       { path: 'user', canActivate: [UserClassGuard], loadChildren: () => import('../user/user.module').then(m => m.UserModule) },

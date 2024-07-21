@@ -23,7 +23,8 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { ToastrModule } from 'ngx-toastr';
 import { ButtonModule } from 'primeng/button';
 import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
-
+import {MatSidenavModule} from '@angular/material/sidenav';
+import { NoDataFoundComponent } from './no-data-found/no-data-found.component';
 @NgModule({
   declarations: [
     SharedComponent,
@@ -33,6 +34,7 @@ import { NotFoundPageComponent } from './not-found-page/not-found-page.component
     DeleteComponent,
     ChangePasswordComponent,
     NotFoundPageComponent,
+    NoDataFoundComponent,
 
   ],
   imports: [
@@ -57,7 +59,8 @@ import { NotFoundPageComponent } from './not-found-page/not-found-page.component
       positionClass: 'toast-top-left',
       preventDuplicates: true,
     }),
-    ButtonModule
+    ButtonModule,
+    MatSidenavModule
   ],
   exports: [
     ReactiveFormsModule,
@@ -80,7 +83,10 @@ import { NotFoundPageComponent } from './not-found-page/not-found-page.component
     MatSelectModule,
     ToastrModule,
     ButtonModule,
-    NotFoundPageComponent
+    NotFoundPageComponent,
+    MatSidenavModule,
+    NoDataFoundComponent
+
   ]
 })
 export class SharedModule { }

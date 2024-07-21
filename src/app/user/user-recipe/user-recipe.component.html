@@ -1,7 +1,5 @@
 <section class="user text-capitalize ">
-
-
-  <div class="page-title px-5">
+  <div class="page-title">
     <div class="container">
       <div class="row justify-content-between align-items-center px-0">
         <div class="col-md-8">
@@ -19,85 +17,96 @@
       </div>
     </div>
   </div>
-  <div class="">
-    <div class="d-flex justify-content-between align-items-center px-5 mt-5">
+  <div class=" d-flex justify-content-between px-4">
+    <div class="right-text mt-5 ">
       <h1 class="h4 H1Color">recipes <span class="spanTxt">Table Details</span></h1>
-      <i class="pi pi-cart-plus" routerLink="/dashboard/user/Fav" style="font-size: 2rem"></i>
-    </div>
-    <p class="px-5">You can check all <span class="H1Color fw-bold">recipes</span> details</p>
-
-    <div>
-      <div class="container-fluid">
-        <div class="row justify-content-between justify-content-center p-5">
-          <div class="col-md-6">
-            <mat-form-field class="example-form-field" class="w-100" appearance="outline">
-              <mat-label>Search recipes</mat-label>
-              <input matInput type="text" [(ngModel)]="searchValue" (keyup.enter)="getAllRescipe()"
-                (click)="searchValue=''; getAllRescipe()">
-              <button *ngIf="searchValue" matSuffix mat-icon-button aria-label="Clear" (click)="searchValue=''">
-                <mat-icon>close</mat-icon>
-              </button>
-            </mat-form-field>
-          </div>
-
-          <div class="col-md-3">
-            <mat-form-field appearance="outline">
-              <mat-label>Categories</mat-label>
-              <mat-select [(ngModel)]="catId" (selectionChange)="getAllRescipe()">
-                <mat-option value="0">All Gategories</mat-option>
-                <mat-option *ngFor="let category  of Gategories" [value]="category.id">{{category.name}}</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-
-          <div class="col-md-3">
-            <mat-form-field appearance="outline">
-              <mat-label>Tag</mat-label>
-              <mat-select [(ngModel)]="tagId" (selectionChange)="getAllRescipe()">
-                <mat-option value="0">All Tags</mat-option>
-                <mat-option *ngFor="let tag of Tags" [value]="tag.id">{{tag.name}}</mat-option>
-              </mat-select>
-            </mat-form-field>
-
-          </div>
-
-        </div>
-      </div>
-
-    </div>
-    <div class="container userContainer">
-      <div class="row">
-        <div class="col-md-4" *ngFor="let recipeItem of listData?.data">
-          <div class="card">
-            <div class="card__image">
-              <img [src]="recipeItem.imagePath? imgUrl + recipeItem.imagePath : empImg" alt="" class="mt-3 w-100">
-            </div>
-            <div class="card__info">
-              <div class="car__info--title">
-                <p class="fw-bolder ">{{recipeItem.name}}
-                  <i class="pi pi-heart text-danger" (click)="addToWishList(recipeItem.id ,  $event)"></i>
-                </p>
-                <button class="btn btn-outline-success" (click)="openUserDialog(recipeItem)">View Details</button>
-
-              </div>
-              <div class="card__info--price mt-5">
-                <p>{{recipeItem?.price |currency : 'EG'}}</p>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <p class="">You can check all <span class="H1Color fw-bold">recipes</span> details</p>
     </div>
 
-    <mat-paginator #paginator class="demo-paginator" (page)="handlePageEvent($event)"
-      [length]="listData?.totalNumberOfPages" [pageSize]="pageSize" [pageIndex]="pageNumber" [disabled]="disabled"
-      [showFirstLastButtons]="showFirstLastButtons" [pageSizeOptions]="[5, 10, 25, 100]" [hidePageSize]="hidePageSize"
-      aria-label="Select page">
-    </mat-paginator>
+
   </div>
+  <div>
+    <div class="container">
+      <div class="row justify-content-between justify-content-center pt-3">
+        <div class="col-md-5">
+          <mat-form-field class="example-form-field" class="w-100" appearance="outline">
+            <mat-label>Search recipes</mat-label>
+            <input matInput type="text" [(ngModel)]="searchValue" (keyup.enter)="getAllRescipe()"
+              (click)="searchValue=''; getAllRescipe()">
+            <button *ngIf="searchValue" matSuffix mat-icon-button aria-label="Clear" (click)="searchValue=''">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-3">
+          <mat-form-field appearance="outline">
+            <mat-label>Categories</mat-label>
+            <mat-select [(ngModel)]="catId" (selectionChange)="getAllRescipe()">
+              <mat-option value="0">All Gategories</mat-option>
+              <mat-option *ngFor="let category  of Gategories" [value]="category.id">{{category.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-3">
+          <mat-form-field appearance="outline">
+            <mat-label>Tag</mat-label>
+            <mat-select [(ngModel)]="tagId" (selectionChange)="getAllRescipe()">
+              <mat-option value="0">All Tags</mat-option>
+              <mat-option *ngFor="let tag of Tags" [value]="tag.id">{{tag.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-1">
+          <div class="text-end ">
+            <a routerLink="/dashboard/user/Fav" class="text-decoration-none">
+              <img src="../../../assets/images/wishlist/whishlist.svg" class="text-end"
+                style="width: 50px; cursor: pointer;" alt="">
+              <br>
+              <small class="text-success ">wishlist</small>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class=" userContainer">
+    <div class="row justify-content-center align-item-center m-auto ">
+      <div class="col-md-3" *ngFor="let recipeItem of userRecipeList?.data">
+        <div class="card">
+          <div class="card__image">
+            <img [src]="recipeItem.imagePath? imgUrl + recipeItem.imagePath : empImg" alt="" class="mt-3 w-100">
+          </div>
+          <div class="card__info">
+            <div class="car__info--title">
+              <p class="fw-bolder ">{{recipeItem.name}}
+                <i class="pi pi-heart text-danger" (click)="addToWishList(recipeItem.id, $event)"></i>
+              </p>
+              <button class="btn btn-outline-success" (click)="openUserDialog(recipeItem)">View Details</button>
+
+            </div>
+            <div class="card__info--price mt-5">
+              <p>{{recipeItem?.price |currency : 'EG'}}</p>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <mat-paginator #paginator class="demo-paginator" (page)="handlePageEvent($event)"
+    [length]="userRecipeList?.totalNumberOfPages" [pageSize]="pageSize" [pageIndex]="pageNumber" [disabled]="disabled"
+    [showFirstLastButtons]="showFirstLastButtons" [pageSizeOptions]="[1,5, 10]" [hidePageSize]="hidePageSize"
+    aria-label="Select page">
+  </mat-paginator>
 </section>

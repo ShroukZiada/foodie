@@ -20,7 +20,7 @@
   <div class="">
     <div class="d-flex justify-content-between align-items-center px-5 mt-5">
       <h1 class="h4 H1Color">recipes <span class="spanTxt">Table Details</span></h1>
-      <button class="btn- primary w-25" routerLink="/dashboard/admin/recipes/add-edit-recipe">add recipes </button>
+      <button class="btn- primary w-25" routerLink="add">add recipes </button>
     </div>
     <p class="px-5">You can check all <span class="H1Color fw-bold">recipes</span> details</p>
 
@@ -59,28 +59,34 @@
       </div>
     </div>
     <div>
-
-      <table class="table table-striped table-hover text-capitalize text-center mt-5 ">
-        <thead style="border: 1px solid rgba(16, 203, 66, 0.429); color: #4AA35A;">
-          <th>name</th>
-          <th>image</th>
-          <th>describtion</th>
-          <th>price</th>
-          <th>catogery</th>
-          <th>tag</th>
-          <th>creation date</th>
+<div>
+      <table   class="table table-bordered table-striped text-center border border-1  shadow ">
+        <thead>
+          <th class="border borderp-2 p-3">image</th>
+          <th class="border borderp-2 p-3">name</th>
+          <th class="border borderp-2 p-3">describtion</th>
+          <th class="border borderp-2 p-3">price</th>
+          <th class="border borderp-2 p-3">catogery</th>
+          <th class="border borderp-2 p-3">tag</th>
+          <th class="border borderp-2 p-3">creation date</th>
+          <th class="border borderp-2 p-3"> </th>
         </thead>
         <tbody>
-          <tr *ngFor="let recipeItem of listData?.data">
-            <td>{{recipeItem.name}}</td>
-            <td><img [src]="recipeItem.imagePath? imgUrl + recipeItem.imagePath : empImg" alt="" class=" tableImg">
+          <tr *ngFor="let recipeItem of recipeList?.data">
+            <td>
+              <img [src]="recipeItem.imagePath? imgUrl + recipeItem.imagePath : empImg" alt="" class=" tableImg">
             </td>
+            <td>{{recipeItem.name}}</td>
             <td>{{recipeItem?.description}}</td>
             <td>{{recipeItem?.price |currency : 'EG'}}</td>
-            <td>{{recipeItem?.catogery}}</td>
             <td>
-              <span *ngFor="let catogery of recipeItem.category">
-                {{recipeItem.name}},
+              <span *ngFor="let category of recipeItem.category">
+                {{category?.name}}
+              </span>
+            </td>
+            <td>
+              <span >
+                {{recipeItem.tag.name}},
               </span>
             </td>
             <td>{{recipeItem?.creationDate | date:'dd-MM-yy hh:mm a'}}</td>
@@ -93,7 +99,7 @@
                   <mat-icon>visibility</mat-icon>
                   <span>view</span>
                 </button>
-                <button mat-menu-item>
+                <button mat-menu-item [routerLink]="['edit', recipeItem.id]">
                   <mat-icon>edit</mat-icon>
                   <span>edit</span>
                 </button>
@@ -105,12 +111,16 @@
             </td>
         </tbody>
       </table>
+      <app-no-data-found *ngIf=" recipeList?.data?.length == 0"></app-no-data-found>
+    </div>
+    <div *ngIf=" recipeList?.data?.length != 0">
 
-      <mat-paginator #paginator class="demo-paginator" (page)="handlePageEvent($event)"
-        [length]="listData?.totalNumberOfPages" [pageSize]="pageSize" [pageIndex]="pageNumber" [disabled]="disabled"
-        [showFirstLastButtons]="showFirstLastButtons" [pageSizeOptions]="[5, 10, 25, 100]" [hidePageSize]="hidePageSize"
-        aria-label="Select page">
+      <mat-paginator   #paginator class="demo-paginator bg-transparent mt-5" (page)="handlePageEvent($event)"
+        [length]="recipeList?.totalNumberOfPages" [pageSize]="pageSize" [pageIndex]="pageNumber"
+        [disabled]="disabled" [showFirstLastButtons]="showFirstLastButtons" [pageSizeOptions]="[1,5, 10, 100]"
+        [hidePageSize]="hidePageSize" aria-label="Select page">
       </mat-paginator>
+    </div>
     </div>
   </div>
 </section>

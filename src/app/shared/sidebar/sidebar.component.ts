@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { AuthService } from 'src/app/auth/services/auth.service';
 
 interface IMenu {
@@ -6,15 +6,34 @@ interface IMenu {
   icon: string,
   link?: string,
   isActive: boolean,
-
 }
+
+interface sideNavToggle{
+  screenWidth:number;
+  collapsed: boolean;
+} 
 @Component({
   selector: 'app-sidebar',
-  templateUrl: './sidebar.component.html',
+  templateUrl:'./sidebar.component.html',
   styleUrls: ['./sidebar.component.scss']
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnInit {
   constructor(private _AuthService: AuthService) { }
+
+  opened: boolean = false;
+  @ViewChild("parElm", { static: true }) parElm!: ElementRef;
+  @ViewChild("sect", { static: true }) sect!: ElementRef;
+  @Input() height!:string;
+  
+
+  ngOnInit(): void {
+
+  }
+  toggleSidebar() {
+    this.parElm.nativeElement.classList.toggle("active-sidebar")
+    this.opened = !this.opened;
+  }
+
   isAdmin(): boolean {
     return this._AuthService.role == 'SuperAdmin' ? true : false;
   }
@@ -58,8 +77,5 @@ export class SidebarComponent {
       icon: 'fa fa-receipt',
       link: '/dashboard/user/Fav',
       isActive: this.isUser()
-    },
-
-
-  ]
+    }, ]
 }

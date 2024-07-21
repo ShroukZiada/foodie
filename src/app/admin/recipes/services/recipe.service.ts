@@ -13,7 +13,7 @@ export class RecipeService {
   getAllRecipes(myPram: any): Observable<any> {
     return this._HttpClient.get('Recipe', { params: myPram })
   }
-  addRecipe(data: any): Observable<any> {
+  addRecipe(data: FormData): Observable<any> {
     return this._HttpClient.post('Recipe', data);
   }
   getAllTags(): Observable<any> {
@@ -22,5 +22,9 @@ export class RecipeService {
   deleteRecipes(id: number): Observable<any> {
     return this._HttpClient.delete(`Recipe/${id}`)
   }
+  
+  onEditRecipe(data:FormData,id:number):Observable<any>{
+    return this._HttpClient.put(`Recipe/${id}`,data)
+    }
 
 }

@@ -1,87 +1,91 @@
 <section class="text-capitalize ">
- <div class="page-title px-5">
-  <div class="container">
-   <div class="row justify-content-between align-items-center px-0">
-    <div class="col-md-8">
-     <h1 class="userMsM text-white">categories <span class="userName">item</span>
-     </h1>
-     <p class="userTitle text-white"> TYou can now add your items that any user can
-      order it from ,
-      <br>the Application and you can edit
-     </p>
-    </div>
-    <div class="col-md-4 text-end">
-     <div class="">
-      <img src="../../../assets/images/Group 48102127.svg" class="w-75">
-     </div>
-    </div>
-   </div>
-  </div>
- </div>
- <div>
-  <div class="d-flex justify-content-between align-items-center px-5 mt-5">
-   <h1 class="h4 H1Color">Categories <span class="spanTxt">Table Details</span></h1>
-   <button class="btn- primary w-25" (click)="openDialog()">add category </button>
-  </div>
-  <p class="px-5">You can check all <span class="H1Color fw-bold">categories</span> details</p>
-  <div>
-   <div>
+  <div class="page-title px-5">
     <div class="container">
-     <div class="row justify-content-center justify-content-center p-5">
-      <div class="col-md-6">
-       <mat-form-field class="example-form-field" class="w-100" appearance="outline">
-        <mat-label>Search Category</mat-label>
-        <input matInput type="text" [(ngModel)]="searchValue" (keyup.enter)="getCategories()"
-         (click)="searchValue=''; getCategories()">
-        <button *ngIf="searchValue" matSuffix mat-icon-button aria-label="Clear" (click)="searchValue=' ' ">
-         <mat-icon>close</mat-icon>
-        </button>
-       </mat-form-field>
+      <div class="row justify-content-between align-items-center px-0">
+        <div class="col-md-8">
+          <h1 class="userMsM text-white">categories <span class="userName">item</span>
+          </h1>
+          <p class="userTitle text-white"> You can now add your items that any user can
+            order it from ,
+            <br>the Application and you can edit
+          </p>
+        </div>
+        <div class="col-md-4 text-end">
+          <div class="">
+            <img src="../../../assets/images/Group 48102127.svg" class="w-75">
+          </div>
+        </div>
       </div>
-     </div>
     </div>
-   </div>
-   <table class="table table-striped table-hover text-capitalize text-center mt-5 d ">
-    <thead style="border: 1px solid rgba(16, 203, 66, 0.429); color: #4AA35A;">
-     <th>name</th>
-     <th>creation date</th>
-     <th>modification date</th>
-    </thead>
-    <tbody>
-     <tr *ngFor="let categoryItem of listData?.data">
-      <td>{{categoryItem?.name}}</td>
-      <td>{{categoryItem?.creationDate | date:'dd-MM-yy hh:mm a'}}</td>
-      <td>{{categoryItem?.modificationDate}}</td>
-      <td>
-       <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-        <mat-icon>more_vert</mat-icon>
-       </button>
-       <mat-menu #menu="matMenu" class="text-capitalize">
-        <button mat-menu-item>
-         <mat-icon>visibility</mat-icon>
-         <span>view</span>
-        </button>
-        <button mat-menu-item (click)="openEditDialog(categoryItem)">
-         <mat-icon>edit</mat-icon>
-         <span>edit</span>
-        </button>
-        <button mat-menu-item class="pointer-event" (click)="opendeleteDialog(categoryItem.id)">
-         <mat-icon>delete</mat-icon>
-         <span>delete</span>
-        </button>
-       </mat-menu>
-      </td>
-     </tr>
-    </tbody>
-   </table>
-   <app-not-found-page *ngIf="listData.data.length == 0"></app-not-found-page>
-
-   <mat-paginator #paginator class="demo-paginator" (page)="handlePageEvent($event)"
-    [length]="listData?.totalNumberOfPages" [pageSize]="pageSize" [pageIndex]="pageNumber" [disabled]="disabled"
-    [showFirstLastButtons]="showFirstLastButtons" [pageSizeOptions]="[5, 10, 25, 100]" [hidePageSize]="hidePageSize"
-    aria-label="Select page">
-   </mat-paginator>
   </div>
- </div>
+  <div>
+    <div class="d-flex justify-content-between align-items-center px-5 mt-5">
+      <h1 class="h4 H1Color">Categories <span class="spanTxt">Table Details</span></h1>
+      <button class="btn- primary w-25" (click)="openDialog()">add category </button>
+    </div>
+    <p class="px-5">You can check all <span class="H1Color fw-bold">categories</span> details</p>
+    <div>
+      <div>
+        <div class="container">
+          <div class="row justify-content-center justify-content-center p-2">
+            <div class="col-md-8">
+              <mat-form-field class="example-form-field" class="w-100" appearance="outline">
+                <mat-label>Search Category</mat-label>
+                <input matInput type="text" [(ngModel)]="searchValue" (keyup.enter)="getCategories()"
+                  (click)="searchValue=''; getCategories()">
+                <button *ngIf="searchValue" matSuffix mat-icon-button aria-label="Clear" (click)="searchValue=' ' ">
+                  <mat-icon>close</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
 
-</section>
+      <section class="table-card mt-5 mx-3 mw-100">
+        <table *ngIf=" categoryList?.data?.length != 0"
+          class="table table-bordered table-striped text-center border border-1  shadow ">
+          <thead class="">
+            <th class="border borderp-2  p-3">name</th>
+            <th class="border border p-2 p-3">creation date</th>
+            <th class="border border p-2 p-3">modification date</th>
+            <th class="border border p-2 p-3">Action</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let categoryItem of categoryList?.data">
+              <td>{{categoryItem?.name}}</td>
+              <td>{{categoryItem?.creationDate | date:'dd-MM-yy hh:mm a'}}</td>
+              <td>{{categoryItem?.modificationDate}}</td>
+              <td>
+                <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu" class="text-capitalize">
+                  <button mat-menu-item>
+                    <mat-icon>visibility</mat-icon>
+                    <span>view</span>
+                  </button>
+                  <button mat-menu-item (click)="openEditDialog(categoryItem)">
+                    <mat-icon>edit</mat-icon>
+                    <span>edit</span>
+                  </button>
+                  <button mat-menu-item class="pointer-event" (click)="on_deleteDialog(categoryItem.id)">
+                    <mat-icon>delete</mat-icon>
+                    <span>delete</span>
+                  </button>
+                </mat-menu>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <app-no-data-found *ngIf=" categoryList?.data?.length == 0"></app-no-data-found>
+        <div *ngIf=" categoryList?.data?.length != 0">
+          <mat-paginator #paginator class="demo-paginator bg-transparent mt-5" (page)="handlePageEvent($event)"
+            [length]="categoryList?.totalNumberOfPages" [pageSize]="pageSize" [pageIndex]="pageNumber"
+            [disabled]="disabled" [showFirstLastButtons]="showFirstLastButtons" [pageSizeOptions]="[1,5, 10, 100]"
+            [hidePageSize]="hidePageSize" aria-label="Select page">
+          </mat-paginator>
+        </div>
+      </section>
+    </div>
+  </div>

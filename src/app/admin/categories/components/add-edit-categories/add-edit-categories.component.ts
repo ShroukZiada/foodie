@@ -16,7 +16,7 @@ export class AddEditCategoriesComponent implements OnInit {
 
   ngOnInit(): void {
     this.name = localStorage.getItem('userName')
-    console.log(this.name);
+    // console.log(this.name);
   }
   onNoClick(): void {
     this.dialogRef.close();

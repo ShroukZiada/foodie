@@ -16,6 +16,8 @@ export class AuthComponent implements OnInit {
   userData: any = {};
   error: string = ''
   localPss: any;
+  loading: boolean = false
+
   constructor(private _router: Router, private auth: AuthService,
     private toastr: ToastrService,
     private _HelperService: HelperService) { }
@@ -25,10 +27,9 @@ export class AuthComponent implements OnInit {
     password: new FormControl(null, [Validators.required, Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/)])
   })
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
 
-
-
+  }
 
   submitAuthForm(authForm: FormGroup) {
     console.log(authForm)
@@ -54,13 +55,5 @@ export class AuthComponent implements OnInit {
       },
     })
   }
-
-
-
-
-
-
-
-
 
 }

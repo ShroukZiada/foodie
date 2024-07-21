@@ -6,6 +6,8 @@ import { PageEvent } from '@angular/material/paginator';
 import { DeleteComponent } from 'src/app/shared/delete/delete.component';
 import { ICategory, ITag } from '../recipes/interface/recipe';
 import { ToastrService } from 'ngx-toastr';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ICategoryDataResponse } from './interfaces/categories';
 
 @Component({
   selector: 'app-categories',
@@ -17,7 +19,14 @@ export class CategoriesComponent implements OnInit {
   pageSize: number = 10;
   pageNumber: number = 1;
   categoryItem: string = '';
-  listData: any;
+  categoryList: ICategoryDataResponse = {
+    pageNumber: 0,
+    pageSize: 0,
+    data: [],
+    totalNumberOfPages: 0,
+    totalNumberOfRecords: 0,
+  }; 
+  
   totalPages: any;
   id: any;
   Tags: ITag[] = [];
@@ -33,7 +42,6 @@ export class CategoriesComponent implements OnInit {
   }
   ngOnInit(): void {
     this.name = localStorage.getItem('userName')
-    console.log(this.name);
     this.getCategories();
   }
 
@@ -47,10 +55,10 @@ export class CategoriesComponent implements OnInit {
     };
     this._CategoriesService.getAllCatogeries(params).subscribe({
       next: (res) => {
-        this.listData = res;
-        console.log(res)
+        this.categoryList = res;
       },
-      error: () => { }
+      error: (error: HttpErrorResponse) =>
+      this.toastr.error(error.error.message, 'Error'),
     })
   }
 
@@ -60,7 +68,7 @@ export class CategoriesComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
+      // console.log(result);
       if (result) {
         this.addCategoryItems(result);
       }
@@ -68,13 +76,12 @@ export class CategoriesComponent implements OnInit {
   }
 
   addCategoryItems(categoryName: string) {
-    this._CategoriesService.addCategories(categoryName).subscribe({
+    this._CategoriesService.createCategory(categoryName).subscribe({
       next: (res) => {
-        console.log(res);
       },
       error: () => { },
       complete: () => {
-        this.toastr.success(`Category Added Successfuly`);
+        this.toastr.success(`Category Added Successfully`);
         this.getCategories();
       }
     })
@@ -90,7 +97,7 @@ export class CategoriesComponent implements OnInit {
   disabled = false;
 
   handlePageEvent(e: PageEvent) {
-    console.log(e);
+    // console.log(e);
 
     //any change in pageSize , pageNumber call el Gatogery
     this.length = e.length;
@@ -99,18 +106,15 @@ export class CategoriesComponent implements OnInit {
     this.getCategories()
   }
 
-  opendeleteDialog(id: number): void {
-    console.log(id)
+  on_deleteDialog(id: number): void {
+    // console.log(id)
     const dialogRef = this.dialog.open(DeleteComponent, {
       data: { categoryId: id },
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        // console.log(result);
         this.onDeleteItem(result)
-
-
       }
     });
   }
@@ -118,7 +122,6 @@ export class CategoriesComponent implements OnInit {
   onDeleteItem(id: number) {
     this._CategoriesService.deleteCategories(id).subscribe({
       next: (res) => {
-        // console.log(res)
       },
       error: () => { },
       complete: () => {
@@ -128,32 +131,27 @@ export class CategoriesComponent implements OnInit {
     })
   }
 
-
   openEditDialog(categoryData: any): void {
     const dialogRef = this.dialog.open(AddEditCategoriesComponent, {
       data: { categoryData }
     });
-    console.log(categoryData.name);
+    // console.log(categoryData.name);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
 
         this.onEditCategory(categoryData.id, result)
       }
-      //  console.log(result)
     });
   }
 
   onEditCategory(id: number, name: string) {
     this._CategoriesService.editCategories(id, name).subscribe({
       next: (res) => {
-        console.log(res);
       },
       error: (err) => {
-        console.log(err.message);
       },
       complete: () => {
-        console.log('category updated');
-        // this.ToastrService.success('category updated', 'Success');
+        this.toastr.success('category updated', 'Success');
         this.getCategories();
       },
     });
